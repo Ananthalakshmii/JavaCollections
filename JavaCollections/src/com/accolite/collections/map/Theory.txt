@@ -1,0 +1,75 @@
+HOW HASHMAP WORKS INTERNALLY: ---  https://www.youtube.com/watch?v=c3RVW3KGIIE   ---- https://www.youtube.com/watch?v=-oafFAPgLao
+
+- Generally hashmap internally saves data in a hash table of size 16-- from index 0 to 15
+-WORKING OF PUT:
+put(Key k, Value v){
+hash(key)
+index=hash & (n-1)
+}
+-- first the hash of the key is computed. then it is bitwised AND with (n-1) where n=16 and the index is located
+-and in the bucket with the index computed,data is stored in the form of --- key|hashcode|value|pointer to  the next node/nulll
+
+-WORKING OF GET:
+V get(Object key){
+hash(key)
+index=hash&(n-1)
+}
+-- first the hash of the key is computed and index also computed in the same way
+- then it searches the bucket in that index for the 1.hashcode->if hash matches then it checks for 2.key stored, if that also matches it returns back the value.
+-if hash does not match, it checks for the next node in the same index for that hash
+
+
+
+
+
+
+EQUALS() AND HASHCODE(): --- https://www.youtube.com/watch?v=Nr56SlbMed4   --- refer java code as well
+
+- All the wrapper classes by default implement equals and hashcode.
+So duplicates is not allowed.
+so the size of duplicate entry in Integer is eliminated and size is shown as 1 unlike Employee where duplicate is allowed because equals and hashcode is not implemented
+and hence the duplicate entry is allowed
+hence the size becomes 2.
+after implementing equals and hashcode, Employee duplicates are removed and size is 1 (and the last entry will overwrite the previous record)
+
+-- By default equals method only compare the reference object
+- To compare based on Object value, override the equals & hashcode method
+- First compare by hashcode(), if hashCode of both Objects are different, then objects are not equal
+- but if hashcode of both Objects are same, then we check the equals method
+- hashcode is used to quickly checl the equality
+
+- Now whenever you're adding Object in Set or Map, then also you need to overide the equals & hashcode
+- Because, Set & Map check the equality & if Object are equal it won't add again so you need to add equality
+
+
+
+
+
+
+
+
+
+
+COMPARATOR VS COMPARABLE: --- https://www.youtube.com/watch?v=oAp4GYprVHM --- refer java code as well
+
+ Collections sort is implemented for all primitive types. but not for user defined type
+ in order to write custom method , the class should implement COMPARABLE INTERFACE AND IMPLEMENT COMPARETO METHOD
+ the method has to write the logic of how to sort the collections-- on which criteria the sort should happen
+ 
+ COMPARATOR can be used:
+ 1.class doesnot implement comparable interface and there is no chance of changing the source code
+ 2. write a new logic for sorting other than in the compareto method of comparable interface
+ -- this is used as a second parameter in the sort function
+
+
+Comparable	Comparator --- https://www.javatpoint.com/difference-between-comparable-and-comparator
+1) Comparable provides a single sorting sequence. In other words, we can sort the collection on the basis of a single element such as id, name, and price.	
+The Comparator provides multiple sorting sequences. In other words, we can sort the collection on the basis of multiple elements such as id, name, and price etc.
+2) Comparable affects the original class, i.e., the actual class is modified.	
+Comparator doesn't affect the original class, i.e., the actual class is not modified.
+3) Comparable provides compareTo() method to sort elements.	
+Comparator provides compare() method to sort elements.
+4) Comparable is present in java.lang package.	
+A Comparator is present in the java.util package.
+5) We can sort the list elements of Comparable type by Collections.sort(List) method.	
+We can sort the list elements of Comparator type by Collections.sort(List, Comparator) method.
